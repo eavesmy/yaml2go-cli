@@ -1,15 +1,15 @@
 # yaml2go-cli
 
-![build_badge](https://github.com/Icemap/yaml2go-cli/workflows/Go/badge.svg)
+**Forked from `github.com/Icemap/yaml2go-cli`**
 
-a command tool for [yaml2go](https://github.com/PrasadG193/yaml2go)
-
-let it can use `go install` command
+# Change
+1. Yaml parser `github.com/PrasadG193/yaml2go` -> `github.com/fengzxu/yaml2go`.
+2. Default package name is the base of output path.
 
 ## Install
 
 ```bash
-go install github.com/Icemap/yaml2go-cli@latest
+go install github.com/eavesmy/yaml2go-cli@latest
 ```
 
 ## Show Help
@@ -30,10 +30,8 @@ Flags:
 ```
 
 ## Example
-
 ```
-./yaml2go-cli -i test/test.yaml -o test/test.bean.file
+./yaml2go-cli -i example/conf.yaml -o example/conf.go
 ```
 
-- [test/test.yaml](test/test.yaml)
-- [test/test.bean.file](test/test.bean.file)
+# Thx [Icemap](https://github.com/Icemap/yaml2go-cli) and [fengzxu](github.com/fengzxu/yaml2go)

@@ -1,40 +1,17 @@
 package main
 
 import (
-	"github.com/PrasadG193/yaml2go"
+	"github.com/fengzxu/yaml2go"
 	"github.com/spf13/cobra"
-	"io/ioutil"
 	"os"
+	"path"
 )
 
 var (
 	rootCmd = &cobra.Command{
 		Use:   "yaml2go-cli",
 		Short: "yaml2go-cli is a cli-tool for yaml to go struct",
-		Run: func(cmd *cobra.Command, args []string) {
-			baFile, err := ioutil.ReadFile(*inputFile)
-			if err != nil {
-				panic(err)
-			}
-
-			y2g := yaml2go.New()
-			strStruct, err := y2g.Convert(StupidYaml2GoStructName, baFile)
-			if err != nil {
-				panic(err)
-			}
-
-			strStruct = StructReplace(strStruct, *structName, *packageName)
-			err = ioutil.WriteFile(*outputFile, []byte(strStruct), 0644)
-			if err != nil {
-				panic(err)
-			}
-
-			// adapter for unix
-			err = os.Chmod(*outputFile, 0644)
-			if err != nil {
-				panic(err)
-			}
-		},
+		Run:   cmdRun,
 	}
 
 	inputFile   *string
@@ -62,6 +39,33 @@ func init() {
 
 func main() {
 	if err := rootCmd.Execute(); err != nil {
+		panic(err)
+	}
+}
+
+func cmdRun(cmd *cobra.Command, args []string) {
+
+	baFile, err := os.ReadFile(*inputFile)
+
+	if err != nil {
+		panic(err)
+	}
+
+	dir, _ := path.Split(*outputFile)
+
+	if dir != "" {
+		// *packageName = dir
+		*packageName = path.Base(dir)
+	}
+
+	y2s := yaml2go.NewStruct(*packageName, *structName, baFile)
+	err = y2s.DoYaml2Struct()
+
+	err = os.WriteFile(*outputFile, []byte(y2s.StructStr), 0644)
+
+	// adapter for unix
+	err = os.Chmod(*outputFile, 0644)
+	if err != nil {
 		panic(err)
 	}
 }
