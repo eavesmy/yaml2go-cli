@@ -1,4 +1,4 @@
-module github.com/Icemap/yaml2go-cli
+module github.com/eavesmy/yaml2go-cli
 
 go 1.19
 
