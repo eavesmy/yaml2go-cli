@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/fengzxu/yaml2go"
+	"fmt"
+	"github.com/miaogaolin/gotl/common/yaml2go"
 	"github.com/spf13/cobra"
 	"os"
 	"path"
@@ -14,16 +15,16 @@ var (
 		Run:   cmdRun,
 	}
 
-	inputFile   *string
-	outputFile  *string
-	structName  *string
+	inputFile  *string
+	outputFile *string
+	// structName  *string
 	packageName *string
 )
 
 func init() {
 	inputFile = rootCmd.PersistentFlags().StringP("input", "i", "", "input yaml file path")
 	outputFile = rootCmd.PersistentFlags().StringP("output", "o", "", "output go file path")
-	structName = rootCmd.PersistentFlags().StringP("struct", "s", "Default", "struct name")
+	// structName = rootCmd.PersistentFlags().StringP("struct", "s", "Default", "struct name")
 	packageName = rootCmd.PersistentFlags().StringP("package", "p", "main", "package name")
 
 	err := rootCmd.MarkPersistentFlagRequired("input")
@@ -58,10 +59,21 @@ func cmdRun(cmd *cobra.Command, args []string) {
 		*packageName = path.Base(dir)
 	}
 
-	y2s := yaml2go.NewStruct(*packageName, *structName, baFile)
-	err = y2s.DoYaml2Struct()
+	_yaml := yaml2go.New()
 
-	err = os.WriteFile(*outputFile, []byte(y2s.StructStr), 0644)
+	config, err := _yaml.Convert(baFile)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	config = fmt.Sprintf(`
+// Auto generate. Do not modify code!
+package %s
+
+`, *packageName) + config
+
+	err = os.WriteFile(*outputFile, []byte(config), 0644)
 
 	// adapter for unix
 	err = os.Chmod(*outputFile, 0644)
