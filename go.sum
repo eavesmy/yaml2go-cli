@@ -1,6 +1,6 @@
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
-github.com/eavesmy/yaml2go v1.0.2 h1:2TH7sYB4FXPTU3wMYklRfs3R1/5mzk8IVd3UhS5kp8s=
-github.com/eavesmy/yaml2go v1.0.2/go.mod h1:+JeAv1Y41C2y6UUSFv5AKTBe6FTR6er7F/pT53MQgVQ=
+github.com/eavesmy/yaml2go v1.0.3 h1:u+3Xl07b5Nz5F5lDYnhjFE+kG4quQulSeNUFmoSz+bQ=
+github.com/eavesmy/yaml2go v1.0.3/go.mod h1:+JeAv1Y41C2y6UUSFv5AKTBe6FTR6er7F/pT53MQgVQ=
 github.com/inconshreveable/mousetrap v1.1.0 h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=
 github.com/inconshreveable/mousetrap v1.1.0/go.mod h1:vpF70FUmC8bwa3OWnCshd2FqLfsEA9PFc4w1p2J65bw=
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=

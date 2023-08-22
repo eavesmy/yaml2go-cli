@@ -3,7 +3,7 @@ module github.com/eavesmy/yaml2go-cli
 go 1.20
 
 require (
-	github.com/eavesmy/yaml2go v1.0.2
+	github.com/eavesmy/yaml2go v1.0.3
 	github.com/spf13/cobra v1.7.0
 )
 
