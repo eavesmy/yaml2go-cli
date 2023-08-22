@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/fengzxu/yaml2go"
+	"fmt"
+	"github.com/eavesmy/yaml2go"
 	"github.com/spf13/cobra"
 	"os"
 	"path"
@@ -26,13 +27,11 @@ func init() {
 	structName = rootCmd.PersistentFlags().StringP("struct", "s", "Default", "struct name")
 	packageName = rootCmd.PersistentFlags().StringP("package", "p", "main", "package name")
 
-	err := rootCmd.MarkPersistentFlagRequired("input")
-	if err != nil {
+	if err := rootCmd.MarkPersistentFlagRequired("input"); err != nil {
 		panic(err)
 	}
 
-	err = rootCmd.MarkPersistentFlagRequired("output")
-	if err != nil {
+	if err := rootCmd.MarkPersistentFlagRequired("output"); err != nil {
 		panic(err)
 	}
 }
@@ -60,6 +59,10 @@ func cmdRun(cmd *cobra.Command, args []string) {
 
 	y := yaml2go.NewStruct(*packageName, *structName, baFile)
 
+	if y == nil {
+		fmt.Println("nil ??", y == nil)
+	}
+
 	if err = y.DoYaml2Struct(); err != nil {
 		// fmt.Println(err.Error())
 		panic(err)
@@ -70,7 +73,7 @@ func cmdRun(cmd *cobra.Command, args []string) {
 	err = os.WriteFile(*outputFile, []byte(y.StructStr), 0644)
 
 	// adapter for unix
-	err = os.Chmod(*outputFile, 0644)
+	err = os.Chmod(*outputFile, 0643)
 	if err != nil {
 		panic(err)
 	}
